@@ -1,6 +1,6 @@
 import { format, formatDistance } from 'date-fns'
 
-global css body c:#393531 bg:#E6E6DB ff:sans inset:0 d:vcc
+global css body c:#393531 bg:#E6E6DB ff:sans inset:0 d:vcc p:4
 
 tag app
 	parts = []
