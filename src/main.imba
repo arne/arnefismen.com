@@ -16,7 +16,8 @@ tag app
 		const fetch = await window.fetch('https://api.panacea.no/')
 		const json = await fetch.json()
 		console.log(json[0].created_at)
-		parts = json[0].content.split(/([#@][\wæøå-]+)/)
+		parts = json[0].rich
+		console.log(json[0].rich)
 		date = formatDistance(json[0].created_at, new Date(),{ weekStartsOn: 1 })
 	<self[d:htl g:2]>
 		<div>
@@ -27,16 +28,19 @@ tag app
 			<p>
 				<span>
 					for part in parts
-							if part.startsWith '#'
-								<a.hash href="https://panacea.no/tag/{part.slice(1)}">
+							if part.type == 'tag'
+								<a.hash href="https://panacea.no/tag/{part.value}">
 									<span[c:#095D6A/50]> '#'
-									part.slice(1)
-							else if part.startsWith '@'
-								<a.hash href="https://panacea.no/person/{part.slice(1)}">
+									part.value
+							else if part.type == 'mention'
+								<a.hash href="https://panacea.no/person/{part.value}">
 									<span[c:#095D6A/50]> '@'
-									part.slice(1)
+									part.value
+							else if part.type == 'url'
+								<a.hash href=part.value>
+									<span[c:#095D6A/50]> part.title
 							else
-								<> part
+								<> part.value
 				<span[ml:2 c:#393531/50]> "({date} ago)"
 			<ul[p:0 d:hcl g:2]>
 				<li>
